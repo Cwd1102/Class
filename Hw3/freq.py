@@ -4,7 +4,7 @@ Author:  Ouwen Dai
 Date:    9/27/22
 Section: 56
 E-mail:  odai1@umbc.edu
-Description:
+Description: Takes user inputted list and finds # of values in the list requested by user
 
 """
 def main():  
@@ -20,7 +20,7 @@ def main():
         if(user_num == num_list[i]):
             x += 1
     print("We found" , x , "value(s) of"  , user_num , "within the data list given")
-
+    
 
 
 main()
