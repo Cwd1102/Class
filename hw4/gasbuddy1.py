@@ -4,7 +4,7 @@ Author:  Ouwen Dai
 Date:    10/1/22
 Section: 56
 E-mail:  odai1@umbc.edu
-Description: finds the sum of squares of int input by user
+Description: finds the gas station with the cheapest price
 
 """
 
@@ -16,17 +16,20 @@ if __name__ == '__main__':
     #stores gas prices for each gas station
     gas_list = list()
 
+    #stores unsorted gas_list
     station_list = list()
 
+    #stores value for lowest gas price
     low_gas = 0
 
+    #stores the station number that has the lowest gas
     gas_station = 1
 
+    #true condition for station check while loop
     condition = True
 
+    #true condition for price check while loop
     name = True
-
-    biggest = 0
 
     station = 0
 
@@ -49,14 +52,13 @@ if __name__ == '__main__':
             if(station == num_gas):
                 name = False
 
-        for i in range(len(gas_list)):
-            if(gas_list[i] > biggest):
-                biggest = gas_list[i]
-
         for x in range(len(gas_list)):
             for i in range(len(gas_list) - 1):
                 if(gas_list[i] > gas_list[i + 1]):
-                    gas_list[i + 1] , gas_list[i] = gas_list[i] , gas_list[i +1]
+                    num_1 = gas_list[i]
+                    num_2 = gas_list[i + 1]
+                    gas_list[i] = num_2
+                    gas_list[i + 1] = num_1
                     low_gas = gas_list[0]
 
         while(condition):
