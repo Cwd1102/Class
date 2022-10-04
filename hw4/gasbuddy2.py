@@ -96,5 +96,3 @@ if __name__ == '__main__':
     print("The lowest price of gas found was station #%d at $%.2f" %(gas_station , low_gas) )
     print("The highest price of gas found was station #%d at $%.2f" %(highest_gas_station , gas_list[len(gas_list) - 1]))
     print("The average gas price was $%.2f" %(avg))
-
-

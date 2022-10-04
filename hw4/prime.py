@@ -31,6 +31,8 @@ if __name__ == '__main__':
                 prime_final.append(prime[i])
                 i = 0
             i += 1
+            if(i == 18):
+                i = 0
     else:
         print("Please enter a valid value > 0")
     

@@ -34,7 +34,7 @@ if __name__ == '__main__':
     station = 0
 
     var = 0
-
+    
     #user inputs prices for each gas station
     if(num_gas < 0):
         print("Invalid number of gas stations")
@@ -67,4 +67,4 @@ if __name__ == '__main__':
                 condition = False
             var += 1
     
-        print("The lowest price of gas found was station #%d at $%.2f" %(gas_station , low_gas) )
+        print("The lowest price of gas found was station #%d at $%.2f" %(gas_station , low_gas))
