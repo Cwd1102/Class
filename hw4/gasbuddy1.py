@@ -44,7 +44,6 @@ if __name__ == '__main__':
         else:
             station_num = False
 
-
     while(name):
         print("What is the gas price at station", station + 1)
         gas_price = float(input(""))
