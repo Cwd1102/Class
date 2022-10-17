@@ -1,5 +1,5 @@
 """
-File:    hex_validation.py
+File:    timestamp_diff.py
 Author:  Ouwen Dai
 Date:    10/16/22
 Section: 56
@@ -41,7 +41,7 @@ if __name__ == '__main__':
          hour = (int(time_2[0 :2]) - int(time_1[0 : 2])) + hour
     
 
-    
+
     final_sec = (hour * 3600) + (minute * 60) + seconds
 
 
