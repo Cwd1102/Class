@@ -13,11 +13,11 @@ if __name__ == '__main__':
     print(val)
 
     index_num = 0
-    
-    for i in val:
-        if i.isalnum():
-            print(f"Index [{index_num}] : {i} : is a VALID Hexadecimal")
+  
+    for i in range(len(val)):
+        if val[i : i + 1].isalnum():
+            print(f"Index [{index_num}] : {val[i : i + 1]} : is a VALID Hexadecimal")
             index_num += 1
         else:
-            print(f"Index [{index_num}] : {i} : is an INVALID Hexadecimal")
+            print(f"Index [{index_num}] : {val[i : i + 1]} : is an INVALID Hexadecimal")
             index_num += 1
