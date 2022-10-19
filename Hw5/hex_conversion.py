@@ -1,5 +1,5 @@
 """
-File:    hex_converstaion.py
+File:    hex_conversion.py
 Author:  Ouwen Dai
 Date:    10/16/22
 Section: 56
@@ -13,6 +13,9 @@ if __name__ == '__main__':
 
     #reference to turn characters into int value
     char_list = ["A" , "B" , "C" , "D" , "E" , "F"]
+
+    #stores ref. number for checker
+    num_list = "123456789"
  
     number_list = []
 
@@ -21,14 +24,14 @@ if __name__ == '__main__':
     for i in range(len(value)):
         condition = True
         while condition:
-            if value[i].isdecimal():
+            if value[i] in num_list:
                change = int(value[i])
                number_list.append(change)
                condition = False
             #Turns the characters into numeric values
             else:
                 for x in range(len(char_list)):
-                    if value[i].capitalize() == char_list[x]:
+                    if value[i].upper() == char_list[x]:
                         change = 10 + x
                         number_list.append(change)
                 condition = False
