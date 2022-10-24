@@ -4,7 +4,7 @@ Author:  Ouwen Dai
 Date:    10/16/22
 Section: 56
 E-mail:  odai1@umbc.edu
-Description: Takes user input and tells if every index is a valid Hexadecimal value
+Description: Tells the difference between two times
 
 """
 if __name__ == '__main__':
