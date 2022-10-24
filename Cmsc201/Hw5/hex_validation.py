@@ -9,13 +9,13 @@ Description: Takes user input and tells if every index is a valid Hexadecimal va
 """
 
 if __name__ == '__main__':
-    
+
     val = input("Please enter a hexadecimal value:")
 
     check = "ABCDEF123456789"
 
     index_num = 0
-    
+
     #checks the string len() times
     for i in range(len(val)):
         val.upper()
