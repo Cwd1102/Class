@@ -120,3 +120,17 @@ def fill_attendance_data():
     #notice, no Al
     
     return newData
+    
+def list_all_times_checking_in_and_out(name , data):
+    index = list()
+    print(data)
+    for i in range(len(data)):
+        if name in data[i]:
+            index.append(data[i])
+    return index
+
+
+def main():
+    print(list_all_times_checking_in_and_out("Lupoli, Shawn", fill_attendance_data()))
+
+main()

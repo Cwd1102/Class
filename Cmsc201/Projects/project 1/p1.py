@@ -57,7 +57,7 @@ def list_students_late_to_class(???):
     :return: ????
     """ 
 
-def get_first_student_to_enter(???:
+def get_first_student_to_enter(???:)
     """
     Simply, this function returns the student that swiped in first. Note,
     the order of the data entered into the swipe log as not the earliest
