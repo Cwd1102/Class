@@ -6,9 +6,8 @@ Lab Section: 56
 Email:  odai1@umbc.edu
 Description:
 """
-
-#TODO: cd, locate, mkdir, rm, touch, debug
-
+#TODO: cd(in progress), locate, mkdir, rm, touch, debug
+#Completed: ls , pwd , helper functions
 """
 * turns the directory path into a list
 * param current_directory: path of the directory
@@ -72,8 +71,6 @@ def ls(user_input , current_file):
         else:
             print(name)
 
-#def cd():
-
 #user_command: what the user inputs into terminal
 #Ex: 'cd dir'
 #return: list , ['cd'] , ['dir]
@@ -92,21 +89,39 @@ def input_split(user_command):
         return command_list
     
     return user_command
-
+"""
+* checks if the file path exists
+* param main_file: main dictionary
+* param file_path = filepath of the desired file/directory
+* returns True if path exists and False if it dosent
+"""
 def path_check(main_file , file_path):
     path_list = dictionary_path_list(file_path)
     keys = list(main_file.keys())
 
+    #if the directory/file exists in the current directory
     if path_list[-1] in keys:
         return True
     
-
+    #moves to the next directory if it exists, otherwise return false
     for name in keys:
         if path_list[0] == name:
             new_file = main_file[name]
             return path_check(new_file , path_list[1 :])
     return False
 
+def cd(user_input , current_file , current_directory):
+    user_input = user_input[1]
+    current_directory_list = dictionary_path_list(current_directory)
+
+    if user_input == "..":
+        if current_directory == "/":
+            print('already in root directory')
+            return "/"
+        else:
+            prev_directory = "/".join(current_directory_list[ : -1])
+            return (f"/{prev_directory}/")
+            
 
 
 #main terminal program
@@ -115,7 +130,7 @@ def main_term():
     file_key = 'files'
     directories_key = "directories"
     #variable for the current directory
-    current_directory = "/"
+    current_directory = "/home/home_1/"
 
     """
     *File System
@@ -155,7 +170,7 @@ def main_term():
         condition = input_split(input("[cmsc201 proj3]$ ").lower())
         #condition type(list)
         current_file_system = cwd(current_directory , my_file_system)
-        print(path_check(my_file_system, '/home/home_1_1/'))
+        
         #! user input: pwd
         if condition == "pwd":
             print(current_directory)
