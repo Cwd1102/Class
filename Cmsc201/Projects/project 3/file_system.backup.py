@@ -6,8 +6,9 @@ Lab Section: 56
 Email:  odai1@umbc.edu
 Description:
 """
-#TODO:  locate(in progress) , mkdir, rm, touch, debug
-#* Completed: ls , pwd , helper functions , cd
+#TODO: cd(in progress), locate, mkdir, rm, touch, debug
+#Completed: ls , pwd , helper functions
+
 """
 * turns the directory path into a list
 * param current_directory: path of the directory
@@ -15,7 +16,6 @@ Description:
 """
 def dictionary_path_list(current_directory):
     # returns directory if it already a list
-
     if type(current_directory) == type([]):
         return current_directory    #! Failsafe
     
@@ -61,23 +61,22 @@ def ls(user_input , current_file):
     #calls dictionary_path_list() 
     current_directory_list = dictionary_path_list(user_input)
     #finds all keys of the current directory
-    if ((user_input[0] == "/") and (user_input[-1] == "/")) or (user_input == "ls"):
+    items = current_file.keys()
+
     #gets all the names of the keys
-        items = current_file.keys()
-        for name in items:
-            #if the key is a file
-            if name == 'files':
-                for txt in (current_file[name]):
-                    print(txt)
-            else:
-                print(name)
-    else:
-        print("invalid format")
+    for name in items:
+        #if the key is a file
+        if name == 'files':
+            for txt in (current_file[name]):
+                print(txt)
+        else:
+            print(name)
 
 #user_command: what the user inputs into terminal
 #Ex: 'cd dir'
 #return: list , ['cd'] , ['dir]
 def input_split(user_command):
+    
     #returns exit to prevent loop
     if user_command.strip() == "exit":
         return "exit"
@@ -112,50 +111,18 @@ def path_check(main_file , file_path):
             return path_check(new_file , path_list[1 :])
     return False
 
-"""
-*moves the current working directory to the specified user input
-*param user_input: command that the user inputted type(list)
-*param current_file: dictionary open to the current working directory
-*param current_directory: filepath of the current directory
-*param main_file: dictionary of the main file system
-"""
-def cd(user_input , current_file , current_directory , main_file):
-    # removes the cd command from list
+def cd(user_input , current_file , current_directory):
     user_input = user_input[1]
-    #turns the current directory into a list
     current_directory_list = dictionary_path_list(current_directory)
 
-    #runs if user inputs ".."
     if user_input == "..":
-        #runs if user inputs "/"
-        if current_directory == "/": #!failsafe
+        if current_directory == "/":
             print('already in root directory')
             return "/"
-        
-        #runs if user input is not "/"
         else:
-            #removes right most path from directory_path
             prev_directory = "/".join(current_directory_list[ : -1])
-            #runs if user hits root directory
-            if len(prev_directory) == 0:
-                return "/"
-                return prev_directory
             return (f"/{prev_directory}/")
-    
-    #! failsafe
-    #checks if user input has any missing "/"s             
-    if ((user_input[0] == "/") and (user_input[-1] == "/")):
-        if path_check(main_file , user_input):
-            return user_input
-        else:
-            print("path does not exist")
-            return current_file
-    
-    else:
-        print("invalid format")
-        return current_directory
-
-
+            
 #main terminal program
 def main_term():
     condition = ""
@@ -180,7 +147,6 @@ def main_term():
     """
     my_file_system = {
         'home' : {
-
             'home_1' : {
                 'home_1_1' : {file_key : ['test.txt']}, 
                 'home_1_2' : {},
@@ -213,11 +179,11 @@ def main_term():
                 temp_file_system = cwd(condition[1] , my_file_system)
                 ls(condition[1] , temp_file_system)
             else:    
-                ls(condition , current_file_system)
+                ls(condition[1] , current_file_system)
         
         #! user input: cd
         if (condition[0] == "cd") and (type(condition) == type([])):
-            current_directory = cd(condition , current_file_system , current_directory ,  my_file_system)
+            current_directory = cd(condition , current_file_system , current_directory)
 
 if __name__ == '__main__':
     #main call
