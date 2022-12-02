@@ -4,10 +4,10 @@ Author: Ouwen Dai
 Date: 11/29
 Lab Section: 56
 Email:  odai1@umbc.edu
-Description:
+Description : simulates basic commands of a file system controlled via terminal
 """
-#TODO:  locate(in progress) , mkdir, rm, touch, debug
-#* Completed: ls , pwd , helper functions , cd
+#TODO: mkdir, rm, touch, debug
+#* Completed: ls , pwd , helper functions , cd , locate
 """
 * turns the directory path into a list
 * param current_directory: path of the directory
@@ -155,28 +155,54 @@ def cd(user_input , current_file , current_directory , main_file):
         print("invalid format")
         return current_directory
 
+def locate(user_input ,file_system , current_directory , path):
+    current_directory_list = dictionary_path_list(current_directory)   
+    var = user_input[-4 : ]
+    if user_input[-4 :] != ".txt":
+        print("please input valid file")
+    else:
+        keys = list(file_system.keys())
+        files = 0
+        
+        if len(keys) == 0:
+            return path
 
+        if 'files' in keys:
+            files = 1
+
+        if user_input in file_system['files']:
+            path.append(current_directory.strip() + user_input + "/")
+
+        for name in keys:
+            
+            if name != 'files':    
+                temp_file_system = file_system[name]
+                temp_directory = (f"{current_directory}{name}/")
+
+                locate(user_input, temp_file_system , temp_directory , path)
+        return path
 #main terminal program
 def main_term():
     condition = ""
     file_key = 'files'
     directories_key = "directories"
     #variable for the current directory
-    current_directory = "/home/home_1/"
+    current_directory = "/home/"
 
     """
     *File System
-    home
-        home_1
-            home_1_1
-                test.txt
-            home_1_2
-            random.txt
-            random_1.txt
-            random_2.txt
-        home_2
-            inception.txt
-        inside_home.txt
+    /
+     home
+         home_1
+             home_1_1
+                 test.txt
+             home_1_2
+             random.txt
+             random_1.txt
+             random_2.txt
+         home_2
+             inception.txt
+         inside_home.txt
     """
     my_file_system = {
         'home' : {
@@ -184,9 +210,9 @@ def main_term():
             'home_1' : {
                 'home_1_1' : {file_key : ['test.txt']}, 
                 'home_1_2' : {},
-                file_key : ['random.txt' , 'random_1.txt' , 'random_2.txt']
+                file_key : ['random.txt' , 'random_1.txt' , 'random_2.txt' , 'inception.txt']
             },
-            'home_2 ' : {
+            'home_2' : {
                 file_key : ['inception.txt']
                 },
 
@@ -218,6 +244,16 @@ def main_term():
         #! user input: cd
         if (condition[0] == "cd") and (type(condition) == type([])):
             current_directory = cd(condition , current_file_system , current_directory ,  my_file_system)
+
+        if (condition[0] == "locate"):
+            path = []
+            path = locate(condition[1] , current_file_system , current_directory , path)
+            if len(path) == 0:
+                print("file not found")
+            else:
+                print("A file with that name was found at the following paths")               
+                for i in range(len(path)):
+                    print(path[i])
 
 if __name__ == '__main__':
     #main call
