@@ -6,7 +6,7 @@ Lab Section: 56
 Email:  odai1@umbc.edu
 Description : simulates basic commands of a file system controlled via terminal
 """
-#TODO: mkdir, rm, touch, debug
+#TODO: mkdir(debugging), rm, touch, debug
 #* Completed: ls , pwd , helper functions , cd , locate
 """
 * turns the directory path into a list
@@ -16,7 +16,7 @@ Description : simulates basic commands of a file system controlled via terminal
 def dictionary_path_list(current_directory):
     # returns directory if it already a list
 
-    if type(current_directory) == type([]):
+    if (type(current_directory) == type([])):
         return current_directory    #! Failsafe
     
     # returns directory if it is in root directory
@@ -98,18 +98,27 @@ def input_split(user_command):
 * returns True if path exists and False if it dosent
 """
 def path_check(main_file , file_path):
-    path_list = dictionary_path_list(file_path)
+    if file_path != "/":
+        if file_path[0] == "/":
+            file_path = file_path[1 : ]
+        if file_path[-1] == "/":
+            file_path = file_path[ : -1]
+    else:
+        return True
+
+    if type(file_path) != type([]):
+        file_path = file_path.split("/")
     keys = list(main_file.keys())
 
     #if the directory/file exists in the current directory
-    if path_list[-1] in keys:
+    if file_path[-1] in keys:
         return True
     
     #moves to the next directory if it exists, otherwise return false
     for name in keys:
-        if path_list[0] == name:
+        if file_path[0] == name:
             new_file = main_file[name]
-            return path_check(new_file , path_list[1 :])
+            return path_check(new_file , file_path[1 :])
     return False
 
 """
@@ -144,13 +153,21 @@ def cd(user_input , current_file , current_directory , main_file):
     
     #! failsafe
     #checks if user input has any missing "/"s             
-    if ((user_input[0] == "/") and (user_input[-1] == "/")):
-        if path_check(main_file , user_input):
-            return user_input
-        else:
-            print("path does not exist")
-            return current_file
+    if path_check(main_file , current_directory + user_input):
+            if user_input[0] != "/":
+                user_input = "/" + user_input
+            if user_input[-1] != "/":
+                user_input = user_input + "/"
+            return current_directory + user_input[1 :]
+    else:
+        print("path does not exist")
+        return current_directory
     
+    if path_check(main_file , user_input):
+        return current_directory + user_input +"/"
+    
+    if ((user_input[0] == "/") and (user_input[-1] == "/")):
+        return user_input
     else:
         print("invalid format")
         return current_directory
@@ -181,13 +198,34 @@ def locate(user_input ,file_system , current_directory , path):
 
                 locate(user_input, temp_file_system , temp_directory , path)
         return path
+
+def mkdir(main_file , user_input , current_directory ,  current_file_system):
+    main_file_copy = main_file
+    current_directory_list = dictionary_path_list(current_directory)
+    keys = list(main_file.keys())
+
+    if main_file == current_file_system:
+        main_file_copy[user_input] = {}
+        return main_file_copy
+    
+    for names in keys:
+        if names != "files":
+            temp_file_system = main_file_copy[names]
+
+            mkdir(temp_file_system , user_input , current_directory , current_file_system)
+    return main_file_copy
+
+
+
+
+
 #main terminal program
 def main_term():
     condition = ""
     file_key = 'files'
     directories_key = "directories"
     #variable for the current directory
-    current_directory = "/home/"
+    current_directory = "/home/home_1/"
 
     """
     *File System
@@ -254,6 +292,9 @@ def main_term():
                 print("A file with that name was found at the following paths")               
                 for i in range(len(path)):
                     print(path[i])
+
+        if (condition[0] == "mkdir"):
+            my_file_system = mkdir(my_file_system, condition[1] , current_directory , current_file_system)
 
 if __name__ == '__main__':
     #main call
