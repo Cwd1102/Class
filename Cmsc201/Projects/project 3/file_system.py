@@ -6,8 +6,8 @@ Lab Section: 56
 Email:  odai1@umbc.edu
 Description : simulates basic commands of a file system controlled via terminal
 """
-#TODO: mkdir(debugging), rm, touch, debug
-#* Completed: ls , pwd , helper functions , cd , locate
+#TODO: mkdir(debugging), touch, debug
+#* Completed: ls , pwd , helper functions , cd , locate , rm
 """
 * turns the directory path into a list
 * param current_directory: path of the directory
@@ -212,10 +212,38 @@ def mkdir(main_file , user_input , current_directory ,  current_file_system):
             mkdir(temp_file_system , user_input , current_directory , current_file_system)
     return main_file_copy
 
+def rm(main_file , user_input , current_directory ,  current_file_system):
+    main_file_copy = main_file
+    current_directory_list = dictionary_path_list(current_directory)
+    keys = list(main_file.keys())
+
+    if main_file == current_file_system:
+        temp_file_system = main_file_copy["files"]
+        for i in range(len(main_file_copy["files"])):
+                if temp_file_system[i] == user_input:
+                    temp_file_system.pop(i)    
+        return main_file_copy    
+    for name in keys:
+        if name != "files":
+            rm(main_file_copy[name] , user_input , current_directory , current_file_system)    
+    return main_file_copy
 
 
+def touch(main_file , user_input , current_directory ,  current_file_system)
+    main_file_copy = main_file
+    current_directory_list = dictionary_path_list(current_directory)
+    keys = list(main_file.keys())
 
+    if main_file == current_file_system:
+        main_file_copy["files"].append(user_input)
+        return main_file_copy
+    
+    for names in keys:
+        if names != "files":
+            temp_file_system = main_file_copy[names]
 
+            touch(temp_file_system , user_input , current_directory , current_file_system)
+    return main_file_copy
 #main terminal program
 def main_term():
     condition = ""
@@ -292,6 +320,12 @@ def main_term():
 
         if (condition[0] == "mkdir"):
             my_file_system = mkdir(my_file_system, condition[1] , current_directory , current_file_system)
+
+        if (condition[0] == "rm"):
+            my_file_system = rm(my_file_system, condition[1] , current_directory , current_file_system)
+
+        if(condition[0] == "touch"):
+            my_file_system = touch(my_file_system, condition[1] , current_directory , current_file_system)
 
 if __name__ == '__main__':
     #main call
