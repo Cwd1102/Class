@@ -134,6 +134,9 @@ def cd(user_input , current_file , current_directory , main_file):
     #turns the current directory into a list
     current_directory_list = dictionary_path_list(current_directory)
 
+    if current_directory == user_input:
+        return current_directory
+    
     #runs if user inputs ".."
     if user_input == "..":
         #runs if user inputs "/"
@@ -159,18 +162,12 @@ def cd(user_input , current_file , current_directory , main_file):
             if user_input[-1] != "/":
                 user_input = user_input + "/"
             return current_directory + user_input[1 :]
-    else:
-        print("path does not exist")
-        return current_directory
+    #else:
+        #print("path does not exist")
+        #return current_directory
     
     if path_check(main_file , user_input):
-        return current_directory + user_input +"/"
-    
-    if ((user_input[0] == "/") and (user_input[-1] == "/")):
-        return user_input
-    else:
-        print("invalid format")
-        return current_directory
+        return current_directory + user_input[1 :]
 
 def locate(user_input ,file_system , current_directory , path):
     current_directory_list = dictionary_path_list(current_directory)   
