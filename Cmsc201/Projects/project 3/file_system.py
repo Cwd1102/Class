@@ -6,8 +6,8 @@ Lab Section: 56
 Email:  odai1@umbc.edu
 Description : simulates basic commands of a file system controlled via terminal
 """
-#TODO: mkdir(debugging), touch, debug
-#* Completed: ls , pwd , helper functions , cd , locate , rm
+#TODO: mkdir(debugging), debug
+#* Completed: ls , pwd , helper functions , cd , locate , rm , touch
 """
 * turns the directory path into a list
 * param current_directory: path of the directory
@@ -229,7 +229,7 @@ def rm(main_file , user_input , current_directory ,  current_file_system):
     return main_file_copy
 
 
-def touch(main_file , user_input , current_directory ,  current_file_system)
+def touch(main_file , user_input , current_directory ,  current_file_system):
     main_file_copy = main_file
     current_directory_list = dictionary_path_list(current_directory)
     keys = list(main_file.keys())
