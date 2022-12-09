@@ -6,7 +6,7 @@ Lab Section: 56
 Email:  odai1@umbc.edu
 Description : simulates basic commands of a file system controlled via terminal
 """
-#TODO: debug
+#TODO: 
 #* Completed: ls , pwd , helper functions , cd , locate , rm , touch , mkdir
 """
 * turns the directory path into a list
@@ -199,6 +199,7 @@ def locate(user_input ,file_system , current_directory , path):
     #checks if file is text file
     if user_input[-4 :] != ".txt":
         print("please input valid file")
+        return path
     else:
         keys = list(file_system.keys())
         files = 0
@@ -260,6 +261,10 @@ def rm(main_file , user_input , current_directory ,  current_file_system):
     current_directory_list = dictionary_path_list(current_directory)
     keys = list(main_file.keys())
 
+    if user_input[-4 :] != ".txt":
+        print("please input valid file")
+        return main_file_copy
+
     if main_file == current_file_system:
         temp_file_system = main_file_copy["files"]
         for i in range(len(main_file_copy["files"])):
@@ -284,6 +289,10 @@ def touch(main_file , user_input , current_directory ,  current_file_system):
     current_directory_list = dictionary_path_list(current_directory)
     keys = list(main_file.keys())
 
+    if user_input[-4 :] != ".txt":
+        print("please input valid file")
+        return main_file_copy    
+    
     if main_file == current_file_system:
         main_file_copy["files"].append(user_input)
         return main_file_copy
@@ -331,8 +340,8 @@ def main_term():
                 },
 
             file_key : ['inside_home.txt']
-
-        }
+        },
+        file_key : []
     }
     
     #loop for the terminal
